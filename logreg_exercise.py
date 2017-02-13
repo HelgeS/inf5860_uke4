@@ -16,19 +16,16 @@ X1 = data.data[:100, :2]
 y = data.target[:100]
 X_full = data.data[:100, :]
 
-X = np.ones((100, 3))
-X[:, 1:] = X1
-
+setosa = plt.scatter(X1[:50,0], X1[:50,1], c='b')
+versicolor = plt.scatter(X1[50:,0], X1[50:,1], c='r')
+plt.xlabel("Sepal Length")
+plt.ylabel("Sepal Width")
+plt.legend((setosa, versicolor), ("Setosa", "Versicolor"))
+plt.show()
 
 # Remember to add a column of ones to X, as the first column
-
-
-#setosa = plt.scatter(X[:50,0], X[:50,1], c='b')
-#versicolor = plt.scatter(X[50:,0], X[50:,1], c='r')
-#plt.xlabel("Sepal Length")
-#plt.ylabel("Sepal Width")
-#plt.legend((setosa, versicolor), ("Setosa", "Versicolor"))
-#plt.show()
+X = np.ones((100, 3))
+X[:, 1:] = X1
 
 def logistic_func(theta, x):
     #Fill in the correct value for the sigmoid function, the logistic function, not logarithm
@@ -71,7 +68,8 @@ def grad_desc(theta_values, X, y, lr=.01, converge_change=.001):
 
 def pred_values(theta, X):
     "Predict the class labels"
-    pred_value = 1
+    logval = logistic_func(theta, X)
+    pred_value = np.round(logval)
 
     return pred_value
 
